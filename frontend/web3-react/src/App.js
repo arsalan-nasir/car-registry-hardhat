@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import carRegisteryABI from "./carRegistryABI.json";
 import { ethers } from "ethers";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 const { Search } = Input;
 
 function App() {
@@ -40,11 +40,12 @@ function App() {
   ];
 
   const connectContract = async () => {
-    const Address = "0x1ef1d1baaaabfadd7b38de708b7793765dedf248";
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(Address, carRegisteryABI, signer);
+    const address = await signer.getAddress();
+
+    const contract = new ethers.Contract(address, carRegisteryABI, signer);
     setContractDetail(contract);
   };
 

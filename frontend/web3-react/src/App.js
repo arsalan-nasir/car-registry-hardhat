@@ -40,12 +40,11 @@ function App() {
   ];
 
   const connectContract = async () => {
+    const Address = "0x09a7C4F5E9E472a3ed169d9ceCB4c1D4255651bB";
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
-    const address = await signer.getAddress();
-
-    const contract = new ethers.Contract(address, carRegisteryABI, signer);
+    const contract = new ethers.Contract(Address, carRegisteryABI, signer);
     setContractDetail(contract);
   };
 
